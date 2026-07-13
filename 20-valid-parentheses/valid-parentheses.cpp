@@ -1,52 +1,25 @@
 class Solution {
 public:
     bool isValid(string s) {
-        if(s.size()==0){
-            return true;
-        }
-        vector<int>arr;
-        int top_element=-1;
-        for(int i=0; i<s.size();i++){
-            if(s[i]=='('){
-                arr.push_back('(');
-            }
-            if(s[i]=='{'){
-                arr.push_back('{');
-            }
-            if(s[i]=='['){
-                arr.push_back('[');
-            }
-            if(arr.size()==0){
-                return false;
-            }
-            if(s[i]==')'){
-                if(arr.back()=='('){
-                    arr.pop_back();
-                }
-                else{
+        if(s.size()%2!=0){return false;}
+
+        stack<char> st;
+        
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='(' || s[i]=='[' || s[i]=='{'){st.push(s[i]);}
+            else{
+                if(st.empty()){
                     return false;
                 }
-            }
-            if(s[i]=='}'){
-                if(arr.back()=='{'){
-                    arr.pop_back();
-                }
-                else{
-                    return false;
-                }
-            }
-            if(s[i]==']'){
-                if(arr.back()=='['){
-                    arr.pop_back();
-                }
-                else{
-                    return false;
-                }
+
+                if(s[i]==')' && st.top()=='('){st.pop();}
+                else if(s[i]==']' && st.top()=='['){st.pop();}
+                else if(s[i]=='}' && st.top()=='{'){st.pop();}
+                else{return false;}
             }
         }
-        if(arr.size()==0){
-            return true;
-        }
-        return false;
+        return st.empty();
+        
+    
     }
 };
