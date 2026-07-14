@@ -1,26 +1,45 @@
 class MyQueue {
 public:
-    int arr[100000];
-    int top_index,front;
+    stack<int>st;
+    stack<int>st2;
+    int rear,front;
     MyQueue() {
-        top_index=-1;
-        front=0;
+        
     }
     
     void push(int x) {
-        arr[++top_index]=x;
+        st.push(x);
     }
     
     int pop() {
-        return arr[front++];
+        if(st2.empty()){
+            while(!st.empty()){
+                int temp=st.top();
+                st.pop();
+                st2.push(temp);
+            }
+        }
+        int temp = st2.top();
+        st2.pop();
+        return temp;
     }
     
     int peek() {
-        return arr[front];
+        if(st2.empty()){
+            while(!st.empty()){
+                int temp = st.top();
+                st.pop();
+                st2.push(temp);
+            }
+        }
+        return st2.top();
     }
     
     bool empty() {
-        return front>top_index;
+        if(st.empty() && st2.empty()){
+            return true;
+        }
+        return false;
     }
 };
 
