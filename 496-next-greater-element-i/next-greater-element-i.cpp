@@ -15,9 +15,11 @@ public:
             }
             st.push(nums2[i]);
         }
-        for(int i=0;i<nums1.size();i++){
-            nums1[i]=mp[nums1[i]];
+        vector<int>ans;
+
+        for(int x:nums1){
+            ans.push_back(mp[x]);
         }
-        return nums1;
+        return ans;
     }
 };
